@@ -1,0 +1,29 @@
+import Boom from '@hapi/boom';
+import axios from 'axios'
+import { config as dotenv } from 'dotenv'
+dotenv()
+
+export const findField = async ({ nameField , field }: any) => {
+    try {
+        
+
+        return await axios.get(`https://api.trello.com/1/boards/${process.env.ID_BOARD_SLIDEWORKS}/${field}?key=${process.env.KEY_API_TRELLO}&token=${process.env.TOKEN_API_TRELLO}`)
+            .then(async (lists) => {  
+             
+                if (nameField){
+                    const fieldFiltered = await lists.data.find((list: any) => { return list.name == nameField }) 
+
+                    if(fieldFiltered){
+                        return fieldFiltered
+                    } 
+                    throw new Error ('Not Found')
+                }
+                return lists.data
+            })
+    } catch (error) {
+        console.log("Error: " + error.message)
+        throw Boom.badRequest(error.message).output.payload
+
+    }
+
+}
