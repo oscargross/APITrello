@@ -5,8 +5,6 @@ dotenv()
 
 export const findField = async ({ nameField , field }: any) => {
     try {
-        
-
         return await axios.get(`https://api.trello.com/1/boards/${process.env.ID_BOARD_SLIDEWORKS}/${field}?key=${process.env.KEY_API_TRELLO}&token=${process.env.TOKEN_API_TRELLO}`)
             .then(async (lists) => {  
              
@@ -20,10 +18,10 @@ export const findField = async ({ nameField , field }: any) => {
                 }
                 return lists.data
             })
+
     } catch (error) {
         console.log("Error: " + error.message)
         throw Boom.badRequest(error.message).output.payload
-
     }
 
 }
