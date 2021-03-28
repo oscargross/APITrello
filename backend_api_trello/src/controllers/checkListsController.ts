@@ -8,16 +8,12 @@ import { findField } from '../utils/cardUtils'
 export let createCheckList = async (req: Request, res: Response) => {
     const { nameCard } = req.query
     const { body: info } = req
-console.log(nameCard);
 
     await findField({ nameField: nameCard, field: 'cards' })
         .then((card) => {
-            
-            const idCard = card.id
-            // console.log(card);
 
+            const idCard = card.id
             const fields = { ...info, idCard }
-            // console.log(fields);
             
             return checkList.createCheckList(fields)
                 .then(result => res.status(201).json(result))
@@ -26,8 +22,8 @@ console.log(nameCard);
         }).catch(error =>
             error.statusCode ? res.status(error.statusCode).json(error) :
                 res.status(400).json(Boom.notFound('Parameter not found').output.payload))
-
 };
+
 export let updateCheckList = async (req: Request, res: Response) => {
     const { nameCheckList, nameCard } = req.query;
     const info = req.body;
@@ -48,16 +44,12 @@ export let updateCheckList = async (req: Request, res: Response) => {
                     const checkListId = checkListFound.id
                     return checkList.updateCheckList(checkListId, info)
                         .then(result => res.status(200).json(result))
-
                 })
-
+                
         }).catch(error =>
             error.statusCode ? res.status(error.statusCode).json(error) :
                 res.status(400).json(Boom.notFound('Parameter not found').output.payload))
 };
-
-
-
 
 export let readCheckList = async (req: Request, res: Response) => {
     const { nameCard, nameCheckList } = req.query;
@@ -73,16 +65,11 @@ export let readCheckList = async (req: Request, res: Response) => {
                     idfieldFather: idCard,
                     fieldSearched: 'checklists'
                 }).then(result => res.status(200).json(result))
-
         })
         .catch(error =>
             error.statusCode ? res.status(error.statusCode).json(error) :
                 res.status(400).json(Boom.notFound('Parameter not found').output.payload))
-
-
 };
-
-
 
 export let deleteCheckList = async (req: Request, res: Response) => {
     const { nameCheckList, nameCard } = req.query;
@@ -103,9 +90,7 @@ export let deleteCheckList = async (req: Request, res: Response) => {
                     const checkListId = checkListFound.id
                     return checkList.deleteCheckList(checkListId)
                         .then(result => res.status(200).json(result))
-
                 })
-
         }).catch(error =>
             error.statusCode ? res.status(error.statusCode).json(error) :
                 res.status(400).json(Boom.notFound('Parameter not found').output.payload))

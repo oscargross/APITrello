@@ -12,17 +12,14 @@ export let createCheckItem = async (idCheckList: any, fields: any) => {
             }).catch((err) => {
                 throw new Error(err)
             })
-
     } catch (error) {
         console.log("Error: " + error.message)
         throw Boom.badRequest(error.message).output.payload
-
     }
 };
 
 export let updateCheckItem = async (idCard: any, idCheckItem: any, fields: any) => {
-    try {
-        
+    try {        
         return await axios.put(`https://api.trello.com/1/cards/${idCard}/checkItem/${idCheckItem}?key=${process.env.KEY_API_TRELLO}&token=${process.env.TOKEN_API_TRELLO}&${querystring.stringify(fields)}`)
             .then((updatedCard) => {
                 return updatedCard.data
@@ -31,15 +28,11 @@ export let updateCheckItem = async (idCard: any, idCheckItem: any, fields: any) 
                 throw new Error(err)
             })
 
-
     } catch (error) {
         console.log("Error: " + error.message)
         throw Boom.badRequest(error.message).output.payload
     }
-
-
 };
-
 
 export let deleteCheckItem = async (idChecklist: any, idCheckItem: any) => {
     try {
@@ -51,7 +44,6 @@ export let deleteCheckItem = async (idChecklist: any, idCheckItem: any) => {
             }).catch((err) => {
                 throw new Error(err)
             })
-
 
     } catch (error) {
         console.log("Error: " + error.message)

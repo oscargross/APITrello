@@ -4,7 +4,6 @@ import * as checkItem from '../services/checkItemService'
 import { findFieldCheck } from '../utils/checksUtils'
 import { findField } from '../utils/cardUtils'
 
-
 export let createCheckItems = async (req: Request, res: Response) => {
     const { nameCard, nameCheckList } = req.query
     const { body: info } = req
@@ -25,15 +24,15 @@ export let createCheckItems = async (req: Request, res: Response) => {
 
                     return checkItem.createCheckItem(idCheckListFound, info)
                         .then(result => res.status(200).json(result))
-
                 })
 
         }).catch(error =>
             error.statusCode ? res.status(error.statusCode).json(error) :
                 res.status(400).json(Boom.notFound('Parameter not found').output.payload))
-
 };
+
 export let updateCheckItems = async (req: Request, res: Response) => {
+
     const { nameCard, nameCheckList, nameCheckItems } = req.query
     const { body: info } = req
 
@@ -57,15 +56,13 @@ export let updateCheckItems = async (req: Request, res: Response) => {
                             idfieldFather: idCheckListFound,
                             fieldSearched: 'checkItems'
                         })
-                        .then((checkItemsFound) => {
+                        .then(async (checkItemsFound) => {
                             const idCheckItemsFound = checkItemsFound.id
 
                             return checkItem.updateCheckItem(idCard, idCheckItemsFound, info)
                                 .then(result => res.status(200).json(result))
-
                         })
                 })
-
         }).catch(error =>
             error.statusCode ? res.status(error.statusCode).json(error) :
                 res.status(400).json(Boom.notFound('Parameter not found').output.payload))
@@ -101,9 +98,8 @@ export let readCheckItems = async (req: Request, res: Response) => {
         .catch(error =>
             error.statusCode ? res.status(error.statusCode).json(error) :
                 res.status(400).json(Boom.notFound('Parameter not found').output.payload))
-
-
 };
+
 export let deleteCheckItems = async (req: Request, res: Response) => {
     const { nameCard, nameCheckList, nameCheckItem } = req.query;
 
@@ -135,10 +131,7 @@ export let deleteCheckItems = async (req: Request, res: Response) => {
                                 .then(result => res.status(200).json(result))
                         })
                 })
-
-
         }).catch(error =>
             error.statusCode ? res.status(error.statusCode).json(error) :
                 res.status(400).json(Boom.notFound('Parameter not found').output.payload))
-
 };
