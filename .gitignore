@@ -3,3 +3,5 @@
 /dist
 /.vscode
 /package-lock.json
+
+/frontend_api_trello/node_modules
